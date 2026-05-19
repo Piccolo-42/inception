@@ -1,5 +1,5 @@
 COMPOSE_FILE	=	srcs/docker-compose.yml
-DATA_DIR		=	/home/stef42/data
+DATA_DIR		=	/home/sravizza/data
 
 all : setup build
 
