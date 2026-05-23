@@ -1,11 +1,7 @@
 COMPOSE_FILE	=	srcs/docker-compose.yml
 USER			=	sravizza
 
-all : setup build upd
-
-setup:
-	mkdir -p /home/$(USER)/data/mysql
-	mkdir -p /home/$(USER)/data/wordpress
+all : build upd
 
 build:
 	sudo docker compose -f $(COMPOSE_FILE) build 
@@ -36,4 +32,4 @@ check:
 logs:
 	sudo docker compose -f $(COMPOSE_FILE) logs -f
 
-.PHONY: all setup build up upd down vdown stop start nuke logs check
+.PHONY: all build up upd down vdown stop start nuke logs check
