@@ -1,4 +1,8 @@
 #!/bin/bash
+set -e
+
+mkdir -p /run/mysqld
+chown -R mysql:mysql /run/mysqld
 
 #check if database is already init
 if [ ! -f "/var/lib/mysql/.init" ]; then

@@ -1,34 +1,39 @@
 COMPOSE_FILE	=	srcs/docker-compose.yml
-DATA_DIR		=	/home/sravizza/data
+USER			=	sravizza
 
-all : setup build
+all : setup build upd
 
 setup:
-	@mkdir -p $(DATA_DIR)/mariadb
-	@mkdir -p $(DATA_DIR)/wordpress
+	mkdir -p /home/$(USER)/data/mysql
+	mkdir -p /home/$(USER)/data/wordpress
 
 build:
-	@docker compose -f $(COMPOSE_FILE) up --build -d
+	docker compose -f $(COMPOSE_FILE) build 
+
+up:
+	docker compose -f $(COMPOSE_FILE) up
+
+upd:
+	docker compose -f $(COMPOSE_FILE) up -d
 
 down:
-	@docker compose -f $(COMPOSE_FILE) down
+	docker compose -f $(COMPOSE_FILE) down
+
+vdown:
+	docker compose -f $(COMPOSE_FILE) down -v
 
 stop:
-	@docker compose -f $(COMPOSE_FILE) stop
+	docker compose -f $(COMPOSE_FILE) stop
 
 start:
-	@docker compose -f $(COMPOSE_FILE) start
+	docker compose -f $(COMPOSE_FILE) start
 
-clean: stop
-	@docker image prune -af
+nuke: vdown
+	docker system prune -a --volumes -f
 
-fclean: down
-	@docker volume rm $(shell docker volume ls -q) 2>/dev/null || true
-	@sudo rm -rf $(DATA_DIR)
-
-re: fclean all
-
+check:
+	docker compose -f $(COMPOSE_FILE) ps
 logs:
-	@docker compose -f $(COMPOSE_FILE) logs -f
+	docker compose -f $(COMPOSE_FILE) logs -f
 
-.PHONY: all setup build down stop start clean fclean re logs
+.PHONY: all setup build up upd down vdown stop start nuke logs check

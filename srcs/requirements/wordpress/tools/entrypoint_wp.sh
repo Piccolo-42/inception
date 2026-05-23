@@ -1,6 +1,8 @@
 #!/bin/bash
+set -e
 
-sleep 5
+mkdir -p /run/php /var/www/html
+chown -R www-data:www-data /var/www/html
 
  if [ ! -f "/var/www/html/wp-config.php" ]; then
 
