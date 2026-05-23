@@ -9,6 +9,7 @@ if [ ! -f "/var/lib/mysql/.init" ]; then
 	DB_PASSWORD=$(cat /run/secrets/db_password)
 	DB_ROOT_PASSWORD=$(cat /run/secrets/db_root_password)
 	mysql_install_db --datadir=/var/lib/mysql --user=mysql
+	
 	mysqld --user=mysql --bootstrap << EOF
 FLUSH PRIVILEGES;
 ALTER USER 'root'@'localhost' IDENTIFIED BY '${DB_ROOT_PASSWORD}';

@@ -26,4 +26,7 @@ WORKDIR /var/www/html
 
 EXPOSE 9000
 
+HEALTHCHECK --interval=10s --timeout=5s --retries=10 --start-period=30s \
+	CMD pidof php-fpm8.2 || exit 1
+
 ENTRYPOINT ["entrypoint_wp.sh"]

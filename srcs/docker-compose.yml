@@ -81,13 +81,13 @@ services:
 
 
 volumes:
-  mariadb:
+  mariadb_volume:
     name: mariadb_volume
     # driver_opts:
     #   type: none
     #   o: bind
     #   device: /home/${LOGIN}/data/mariadb
-  wordpress_db:
+  wordpress_volume:
     name: wordpress_volume
     # driver_opts:
     #   type: none

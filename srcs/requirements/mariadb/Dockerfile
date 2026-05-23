@@ -12,7 +12,7 @@ COPY tools/entrypoint_mdb.sh /usr/local/bin/entrypoint_mdb.sh
 RUN chmod +x /usr/local/bin/entrypoint_mdb.sh
 
 HEALTHCHECK --start-period=7s --interval=20s --timeout=15s --retries=3 \
-	CMD mariadb -u $DB_USER -p$(cat /run/secrets/db_password) --execute="SELECT 1;" || exit 1
+    CMD mariadb --no-defaults -u root -p$(cat /run/secrets/db__root_password) -h 127.0.0.1 --execute="SELECT 1;" || exit 1
 
 EXPOSE 3306
 
